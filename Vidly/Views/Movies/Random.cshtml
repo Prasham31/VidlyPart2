@@ -1,0 +1,34 @@
+﻿@using Vidly.Models
+@model Vidly.ViewModels.RandomMovieViewModel
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*Vidly.Models.Movie --If we want to pass Movie model to view using Model*@
+<h2>@Model.Movie.Name</h2>
+
+@if (Model.Customers.Count == 0)
+{
+    <p>No one has rented this movie before..!!</p>
+}
+else
+{
+    <ul>
+        @foreach (var customer in Model.Customers)
+        {
+            <li>
+                @customer.name
+            </li>
+        }
+    </ul>
+}
+
+
+@*<h2>@(((Movie)ViewData["Movie"]).Name)</h2>*@
+@*pass Movie model to view using viewdata*@
+@*Magic string issue *@
+
+@*<h2>@(((Movie)ViewBag.MovieVB).Name)</h2>*@
+@*pass Movie model to view using viewbag*@
+@*Magic string issue *@
