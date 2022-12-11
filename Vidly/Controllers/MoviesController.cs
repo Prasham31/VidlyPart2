@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
+using System.Data.Entity;
 using Vidly.ViewModels;
 
 namespace Vidly.Controllers
@@ -12,6 +13,29 @@ namespace Vidly.Controllers
     {
         //MoviesController class derivied from controller class
         //View is helper method created from base Controller class
+
+        private ApplicationDbContext _context;
+
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        [Route("Movies/Index")]
+        public ViewResult Index()
+        {
+            var movies = _context.Movies.Include(m=>m.Genres).ToList();
+            return View(movies);
+        }
+
+        [Route("Movies/Index/{id}")]
+        public ActionResult Details(int id)
+        {
+            var movie = _context.Movies.Include(m => m.Genres).SingleOrDefault(u=>u.Id == id);
+            if (movie == null)
+                return HttpNotFound();        
+            return View(movie);
+        }
 
         // GET: Movies/Random
         public ActionResult Random()
