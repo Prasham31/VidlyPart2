@@ -14,6 +14,6 @@ namespace Vidly
                 
         }
 
-        DbSet<Customer> Customers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
     }
 }
