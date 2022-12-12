@@ -37,22 +37,55 @@ namespace Vidly.Controllers
             return View(customers);
         }
        
-        public ActionResult New()
+        public ActionResult CustomerForm()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
-            var viewModel = new NewCustomerViewModel()
+            var viewModel = new CustomerFormViewModel()
             {
                 MembershipTypes = membershipTypes
             };
-            return View(viewModel);
+            return View("CustomerForm", viewModel);
         }
 
         [HttpPost]
-        public ActionResult Create(Customer customer) //Model Binding
+        public ActionResult Save(Customer customer) //Model Binding
         {
-            _context.Customers.Add(customer);
+            if (customer.id == 0)
+             _context.Customers.Add(customer);
+            else
+            {
+                var customerInDb = _context.Customers.Single(c=> c.id == customer.id);
+               
+                //TryUpdateModel(customerInDb);//1 way to update 
+
+                //2 way
+                customerInDb.name = customer.name;
+                customerInDb.BirthDate = customer.BirthDate;
+                customerInDb.MembershipType = customer.MembershipType;
+                customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+
+                //3 way - using automapper
+                //Mapper.Map(customer, customerInDb);
+
+            }
             _context.SaveChanges(); //Save changes in db
             return RedirectToAction("Index","Customers");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var customer = _context.Customers.SingleOrDefault(u => u.id == id);
+
+            if (customer == null)
+                return HttpNotFound();
+
+            var viewModel = new CustomerFormViewModel()
+            {
+                Customer = customer,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+
+            return View("CustomerForm", viewModel);
         }
 
         public ActionResult Details(int id)
