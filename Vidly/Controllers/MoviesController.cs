@@ -37,6 +37,53 @@ namespace Vidly.Controllers
             return View(movie);
         }
 
+        public ActionResult Edit(int id)
+        {
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+            if (movie == null)
+                return HttpNotFound();
+
+            var movieViewModel = new MovieFormViewModel(movie)
+            {               
+                Genre = _context.Genres.ToList()
+            };
+
+            return View("New", movieViewModel);
+        }
+
+        public ActionResult New()
+        {
+            var genre = _context.Genres.ToList();
+            MovieFormViewModel movieViewModel = new MovieFormViewModel
+            {
+                Genre = genre
+            };
+            return View(movieViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Movie movie)
+        {
+            //Add movie to DB
+            if (movie.Id == 0)
+            {
+                movie.DateAdded = DateTime.Now;
+                _context.Movies.Add(movie);
+            }               
+            else
+            {
+                //Update movie
+                var movieInDb = _context.Movies.Single(m=>m.Id == movie.Id);
+                movieInDb.Name = movie.Name;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.NumberInStock = movie.NumberInStock;
+                movieInDb.DateAdded = DateTime.Now;
+                movieInDb.GenreId = movie.GenreId;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index","Movies");
+        }
+
         // GET: Movies/Random
         public ActionResult Random()
         {
@@ -75,7 +122,7 @@ namespace Vidly.Controllers
 
         #region MVC fundamentals
         //Movies/Edit/1
-        public ActionResult Edit(int id)
+        public ActionResult EditOld(int id)
         {
             return Content("id = " + id); //e.g., how request data is mapped to parameter of action
         }
