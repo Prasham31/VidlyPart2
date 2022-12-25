@@ -12,11 +12,16 @@
 
 @using (@Html.BeginForm("Save", "Customers"))
 {
-    @Html.ValidationSummary(true,"Please fix the following errors.")
+    @Html.ValidationSummary(true, "Please fix the following errors.")
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.name)
         @Html.TextBoxFor(m => m.Customer.name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m=>m.Customer.name)
+        @Html.ValidationMessageFor(m => m.Customer.name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeid)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeid, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeid)
     </div>
     <div class="form-group">
 
@@ -26,18 +31,13 @@
         @Html.TextBoxFor(m => m.Customer.BirthDate, "{0:d MMM yyyy}", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Customer.BirthDate)
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Customer.MembershipTypeid)
-        @Html.DropDownListFor(m => m.Customer.MembershipTypeid, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeid)
-    </div>
     <div class="checkbox">
         <label>
             @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsLetter) Subscribed To NewsLetter?
         </label>
     </div>
 
-    @Html.HiddenFor(m=>m.Customer.id)
+    @Html.HiddenFor(m => m.Customer.id)
 
     <button type="submit" class="btn btn-primary">Save</button>
 }
