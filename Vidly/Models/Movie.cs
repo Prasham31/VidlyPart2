@@ -23,6 +23,7 @@ namespace Vidly.Models
 
         [Required]
         [Display(Name = "Number In Stock")]
+        [Range(1,20,ErrorMessage = "The field Number In Stock must be between 1 and 20.")]
         public int NumberInStock { get; set; }
 
         public Genre Genres { get; set; }

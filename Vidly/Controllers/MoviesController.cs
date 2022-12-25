@@ -44,7 +44,7 @@ namespace Vidly.Controllers
                 return HttpNotFound();
 
             var movieViewModel = new MovieFormViewModel(movie)
-            {               
+            {                              
                 Genre = _context.Genres.ToList()
             };
 
@@ -62,8 +62,18 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var genre = _context.Genres.ToList();
+                MovieFormViewModel movieViewModel = new MovieFormViewModel(movie)
+                {
+                    Genre = genre
+                };
+                return View("New",movieViewModel);
+            }
             //Add movie to DB
             if (movie.Id == 0)
             {

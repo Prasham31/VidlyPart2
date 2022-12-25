@@ -11,26 +11,27 @@ namespace Vidly.ViewModels
     {
         public IEnumerable<Genre> Genre { get; set; }
 
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
         [Required]
         [Display(Name = "Release Date")]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
-        [Required]
-        public DateTime DateAdded { get; set; }
+        //[Required]
+        //public DateTime DateAdded { get; set; }
 
         [Required]
         [Display(Name = "Number In Stock")]
-        public int NumberInStock { get; set; }
+        [Range(1, 20, ErrorMessage = "The field Number In Stock must be between 1 and 20.")]    
+        public int? NumberInStock { get; set; }
 
-        public Genre Genres { get; set; }
+        //public Genre Genres { get; set; }
 
         [Display(Name = "Genre")]
-        public int GenreId { get; set; }
+        public int? GenreId { get; set; }
 
         public string Title
         {
@@ -40,6 +41,7 @@ namespace Vidly.ViewModels
             }
         }
 
+        //For new movie set Id = 0
         public MovieFormViewModel()
         {
             Id = 0;
