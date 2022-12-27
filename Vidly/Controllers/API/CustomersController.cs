@@ -26,22 +26,22 @@ namespace Vidly.Controllers.API
         }
 
         //GET /api/customers/1
-        public CustomerDTo GetCustomer(int id)
+        public IHttpActionResult GetCustomer(int id)
         {
             var customer =  _context.Customers.SingleOrDefault(c=>c.id == id);
 
             if (customer == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
-            return Mapper.Map<Customer,CustomerDTo>(customer);
+            return Ok(Mapper.Map<Customer,CustomerDTo>(customer));
         }
 
         //POST api/customers
         [HttpPost]
-        public CustomerDTo CreateCustomer(CustomerDTo customerDTO)
+        public IHttpActionResult CreateCustomer(CustomerDTo customerDTO)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
             var customer = Mapper.Map<CustomerDTo, Customer>(customerDTO);
             _context.Customers.Add(customer);
@@ -49,19 +49,19 @@ namespace Vidly.Controllers.API
 
             customerDTO.id = customer.id;
 
-            return customerDTO;
+            return Created(new Uri(Request.RequestUri + "/" + customer.id),customerDTO);
         }
 
         //PUT api/customers/1
         [HttpPut]
-        public void UpdateCustomer(int id,CustomerDTo customerDTO)
+        public IHttpActionResult UpdateCustomer(int id,CustomerDTo customerDTO)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
             var customerFromDb = _context.Customers.SingleOrDefault(c => c.id == id);
             if (customerFromDb == null)
-                 throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
             Mapper.Map(customerDTO,customerFromDb);
 
@@ -70,22 +70,22 @@ namespace Vidly.Controllers.API
             //customerFromDb.IsSubscribedToNewsLetter = customerDTO.IsSubscribedToNewsLetter;
             //customerFromDb.MembershipTypeid = customerDTO.MembershipTypeid;
 
-            _context.SaveChanges();
+            return Ok(_context.SaveChanges());
         }
 
         //DELETE api/customers/1
         [HttpDelete]
-        public void DeateCustomer(int id)
+        public IHttpActionResult DeateCustomer(int id)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
             var customerFromDb = _context.Customers.SingleOrDefault(c => c.id == id);
             if (customerFromDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             _context.Customers.Remove(customerFromDb);
-            _context.SaveChanges();
+            return Ok(_context.SaveChanges());
         }
     }
 }
