@@ -14,9 +14,17 @@ namespace Vidly
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/lib").Include(
+                        "~/Scripts/jquery-{version}.js",
+                        "~/bundles/bootstrap").Include(
+                        "~/Scripts/bootbox.js",  //reference to bootbox
+                        "~/Scripts/bootstrap.js",
+                        "~/Scripts/datatables/jquery.datatables.js",
+                        "~/Scripts/datatables/datatables.bootstrap.js"));
+
             //Below is Jquery bundle
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(    
-                        "~/Scripts/jquery-{version}.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(    
+            //            "~/Scripts/jquery-{version}.js"));
 
             //Below is Jquery validation bundle
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -29,15 +37,16 @@ namespace Vidly
                         "~/Scripts/modernizr-*"));
 
             //Below is for bootstrap
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/bootbox.js",  //reference to bootbox
-                      "~/Scripts/bootstrap.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //            "~/Scripts/bootbox.js",  //reference to bootbox
+            //          "~/Scripts/bootstrap.js"));
 
             //Below is for CSS
             //  instaed of "~/Content/bootstrap.css" we are using  "~/Content/bootstrap-lumen.css"
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/datatables/css/datatables.bootstrap.css"));
         }
     }
 }

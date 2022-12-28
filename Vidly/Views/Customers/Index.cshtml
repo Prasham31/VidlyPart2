@@ -44,6 +44,8 @@ else
     <script>
         $(document).ready(function () {
 
+            $('#customers').DataTable();//using Datatables plugin
+
              /*in customers table find all elements of class js-delete*/
             $("#customers").on("click",".js-delete" ,function () {
                 var button = $(this);
