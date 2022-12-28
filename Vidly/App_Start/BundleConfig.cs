@@ -30,6 +30,7 @@ namespace Vidly
 
             //Below is for bootstrap
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/Scripts/bootbox.js",  //reference to bootbox
                       "~/Scripts/bootstrap.js"));
 
             //Below is for CSS
