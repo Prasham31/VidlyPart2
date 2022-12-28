@@ -8,13 +8,13 @@
 
 <h2>Customers</h2>
 @*@if (!Model.Any())
-{
-    <p>We don't have any customers yet..!!</p>
-}
-else
-{
-    
-}*@
+    {
+        <p>We don't have any customers yet..!!</p>
+    }
+    else
+    {
+
+    }*@
 
 <table id="customers" class="table table-bordered table-hover">
     <thead>
@@ -46,11 +46,11 @@ else
     <script>
         $(document).ready(function () {
 
-            //using Datatables plugin   
+            //using Datatables plugin
             //$('#customers').DataTable();
 
             //Datatable using source as api/customers
-            $('#customers').DataTable({
+            var table = $('#customers').DataTable({
                 ajax: {
                     url: "api/customers",
                     dataSrc: "",
@@ -63,7 +63,7 @@ else
                         }
                     },
                     {
-                        data:"membershipType.name"
+                        data: "membershipType.name"
                     },
                     {
                         data: "id",
@@ -74,8 +74,8 @@ else
                 ]
             });
 
-             /*in customers table find all elements of class js-delete*/
-            $("#customers").on("click",".js-delete" ,function () {
+            /*in customers table find all elements of class js-delete*/
+            $("#customers").on("click", ".js-delete", function () {
                 var button = $(this);
 
                 //if confirm function returns true call jQuery ajax
@@ -89,11 +89,12 @@ else
                             success: function () {
                                 //console.log("Success");
 
-                                button.parents("tr").remove();
+                                table.row(button.parents("tr")).remove().draw();
+                                //button.parents("tr").remove();
                             }
                         });
                     }
-                });     
+                });
             });
         });
     </script>
