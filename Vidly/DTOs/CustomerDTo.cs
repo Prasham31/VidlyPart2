@@ -21,5 +21,7 @@ namespace Vidly.DTOs
         public bool IsSubscribedToNewsLetter { get; set; }
 
         public byte MembershipTypeid { get; set; }//Foreign key
+
+        public MembershipTypeDTo MembershipType { get; set; }
     }
 }

@@ -32,9 +32,9 @@ namespace Vidly.Controllers
             //var customers = GetCustomers();
 
             //Data from database
-            var customers = _context.Customers.Include(c=>c.MembershipType).ToList(); //Eager Loading
+            //var customers = _context.Customers.Include(c=>c.MembershipType).ToList(); //Eager Loading
 
-            return View(customers);
+            return View();
         }
        
         public ActionResult CustomerForm()
