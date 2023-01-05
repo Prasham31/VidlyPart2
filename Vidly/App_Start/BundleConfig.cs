@@ -17,9 +17,9 @@ namespace Vidly
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/bundles/bootstrap").Include(
-                        "~/Scripts/bootbox.js",  //reference to bootbox
+                        "~/Scripts/bootbox.js",                        //reference to bootbox
                         "~/Scripts/bootstrap.js",
-                        "~/Scripts/datatables/jquery.datatables.js",
+                        "~/Scripts/datatables/jquery.datatables.js",   //reference to datatables
                         "~/Scripts/datatables/datatables.bootstrap.js"));
 
             //Below is Jquery bundle

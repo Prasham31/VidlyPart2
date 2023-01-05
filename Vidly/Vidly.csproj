@@ -150,6 +150,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="DTOs\CustomerDTo.cs" />
+    <Compile Include="DTOs\GenreDTo.cs" />
     <Compile Include="DTOs\MembershipTypeDTo.cs" />
     <Compile Include="DTOs\MovieDTo.cs" />
     <Compile Include="Global.asax.cs">

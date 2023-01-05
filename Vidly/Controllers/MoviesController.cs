@@ -21,11 +21,11 @@ namespace Vidly.Controllers
             _context = new ApplicationDbContext();
         }
 
-        [Route("Movies/Index")]
+        [Route("Movies")]
         public ViewResult Index()
         {
-            var movies = _context.Movies.Include(m=>m.Genres).ToList();
-            return View(movies);
+            //var movies = _context.Movies.Include(m=>m.Genres).ToList();
+            return View();
         }
 
         [Route("Movies/Index/{id}")]
