@@ -7,7 +7,10 @@ namespace Vidly
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            //Global filters are defined here
             filters.Add(new HandleErrorAttribute());
+
+            //filters.Add(new AuthorizeAttribute());
         }
     }
 }
